@@ -1,0 +1,21 @@
+create table testResult
+(testResultId int auto_increment not null, 
+ resultDescription varchar(150),
+ testId int,
+ testScriptName varchar(50),
+ testStart Datetime,
+ testFinish Datetime,
+ sutId int,
+ primary key(testResultId) ,
+ foreign key (testId) references tests (testId) on delete set null,
+ foreign key (sutId) references SUT (sutId) on delete set null
+ )Engine=InnoDB;
+ 
+ create table SUT
+ (sutId int auto_increment not null,
+  sutOS varchar(50),
+  sutDescription varchar(120),
+  sutHardware varchar(50),
+  primary key (sutId)
+  )Engine=InnoDB;
+ 
