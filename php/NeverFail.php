@@ -3,7 +3,7 @@
 <?php
 //Connection to the databse, queries and the result from queries
 
-$connect = mysqli_connect("localhost", "cosctea4_cosc", "CoscTea4", "cosctea4_cosc4345");
+$connect = mysqli_connect("localhost", "cosctea4_cosc", "CoscTea4;", "cosctea4_cosc4345");
 
 $query = "SELECT * FROM tests, testResult, SUT";
 
