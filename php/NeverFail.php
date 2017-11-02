@@ -5,7 +5,7 @@
 
 $connect = mysqli_connect("localhost", "cosctea4_cosc", "CoscTea4;", "cosctea4_cosc4345");
 
-$query = "SELECT * FROM tests, testResult, SUT";
+$query = "SELECT testScriptName, testResult,testStartDateTime, testFinishDateTime,sutOS, sutDescription, TIMEDIFF(testFinishDateTime, testStartDateTime) diff FROM Test, testResult, SUT WHERE testResult.testId = Test.testId AND testResult.sutId = SUT.sutId";
 
 $result = mysqli_query($connect, $query);
 
@@ -33,13 +33,12 @@ $result = mysqli_query($connect, $query);
                 <thead>
                   <tr>
                     <th>Test Name</th>
-                    <th>Test ID</th>
-                    <th>Result ID</th>
                     <th>Test Result</th>
-                    <th>SUT</th>
-                    <th>Test StarTime</th>
-                    <th>Test EndTime</th>
+                    <th>Test Start Time</th>
+                    <th>Test End Time</th>
                     <th>SUT OS</th>
+                    <th>SUT Description</th>
+                     <th>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,13 +49,12 @@ $result = mysqli_query($connect, $query);
                     echo '
                     <tr>
                         <td>'.$row["testScriptName"]. '</td>
-                        <td>'.$row["testResultId"]. '</td>
-                        <td>'.$row["testId"]. '</td>
                         <td>'.$row["testResult"]. '</td>
-                        <td>'.$row["sutId"]. '</td>
-                        <td>'.$row["testStart"]. '</td>
-                        <td>'.$row["testFinish"]. '</td>
+                        <td>'.$row["testStartDateTime"]. '</td>
+                        <td>'.$row["testFinishDateTime"]. '</td>
                         <td>'.$row["sutOS"]. '</td>
+                        <td>'.$row["sutDescription"]. '</td>
+                        <td>'.$row["diff"]. '</td>
                     </tr>
                     ';
                  }// end of while 
