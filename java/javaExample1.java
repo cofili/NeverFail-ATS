@@ -1,8 +1,8 @@
-// COSC4345 Example
+// COSC4345 Example 
 // This class provides an example of how to connect to a web server to retrieve
 // a Python script name, execute the script and print the return results
 
-package cosc4345ExamplePackage;
+package neverFail;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.*;
 
-public class COSC4345Example {
+public class javaExample1 {
 	
 	public static void main(String[] args) {
 		try {
@@ -38,7 +38,7 @@ public class COSC4345Example {
 			//
 			while ((result = reader.readLine()) != null) {
 				result = result.replace("\"",  "");
-				script = "python " + result;
+				script = "python" + result;
 				
 			}
 			reader.close();
@@ -58,8 +58,10 @@ public class COSC4345Example {
 			}
 			
 			// You may need to add more code here to return the SUCCESS or FAIL back to the
-			// database for tracking puposes.  That code should go here
-
+			// database for tracking purposes.  That code should go here
+			
+			URL url2 = new URL("http://team5-cosc.com/NeverFail.php?action=putResult&result=FAIL&description=IOErroException&SUTID=8");
+			
 		}
 		catch(MalformedURLException e) {
 			throw new RuntimeException(e);
