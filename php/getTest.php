@@ -1,102 +1,116 @@
 <?php
 // getTest(sutId)
 // request a test script to run from the php command/control.
-
+include('../adodb5/adodb.inc.php');
 require "./DBConnection.php";
-     
-      if (isset($_GET["action"])) {
+ //require "./AutomationTest.php";    
+      if (isset($_GET["action"]) ) {
 
     $action = $_GET["action"];
-     
+    
+    $result = $_GET["result"]; 
+    $newResult = $result;
+    
+    $sutId = $_GET["sutId"];
+    $newSutId = $sutId; 
+    
+    $scriptName = $_GET["scriptName"];
+    $newScript=$scriptName;
+    
     if ($action == "putResult") {
-    $SUTId = $_GET["sutId"];
-    $Result = $_GET["Result"];
-    $description = $_GET["description"];
-    updateResult ($SUTId, $Result, $description);
+        
+       
+       putResult ($newResult, $newScript);
+      
     }
-    
     elseif($action == "getTest"){
-        $scriptName = $_GET["scriptName"];
-        getTest($scriptName);
-    }
+        getTest($testStart, $newTestId, $newSutId, $newScript);
         
     }
-	
-     
+    
     
         
-        
-    // Create connection
+    }
 
-
-
-    function getTest($scriptName){
+    function getTest($testStart, $newTestId, $newSutId, $newScript){
     	 // Open a connection to the database
-     	 		  //
-     		   $db = ADONewConnection('mysql'); // Create a connection handle to the local database
+     	 	
+     	      $db = ADONewConnection('mysql'); // Create a connection handle to the local database
      		   $db->PConnect('localhost',  // Host to connect to
       		      	'cosctea4_cosc',     // Database user name
         		    'CoscTea4;',             // Password
-        		    'cosctea4_cosc4345');   // Database    
-    	$sql = "";  
-        $sql ="select scriptName from tests ";
-        $rs = $db->Execute($sql);
+        		    'cosctea4_cosc4345');   // Database       
+        		   
+        		  
+        		   
+        		   
+        		   
+        		$newTestId = 1;   
+        		    
+         $sql = "";
+ 
+    	 $sql = "INSERT INTO testResult (testStartDateTime, testId, sutId)
+    	 VALUES ( NOW() +1, '$newTestId', '$newSutId') ";
+         $rs = $db->Execute($sql);
         
         
-        
-        if($rs == false) {
-	
-	
-		print_r($rs);
-		print "<br> SQL selected failed \n";
+        if($rs) {
+		print "<br> ----Inserted successfuly --- \n";
+		print "<br> <br> scriptName".$newScript;
+	}
+	elseif($rs == false){
+	    print "<br> insert failed   <br> scriptName".$newScript;
 	}
 	
-	
-	else{
-	    while(!$rs->EOF){
-	
-	$scriptName = $rs->fields['scriptName'];
-	
-	print "sutId should run :" .$scriptName ; 
-	"<br>".
-	$rs->MoveNext();
-	        }
 
-	}
 }//enf function getTest()
     
     
-     function putResult($SUTId , $Result){
+    
+    
+    
+    
+    
+    
+    
+     function putResult($newResult, $newScript){
     	 // Open a connection to the database
      	 		  //
-     		   $db = ADONewConnection('mysql'); // Create a connection handle to the local database
+     	 		  $result = $_GET['result'];
+                     $newResult = $result;
+                     print(" %result : <br>" .$result);
+                     
+     	      $db = ADONewConnection('mysql'); // Create a connection handle to the local database
      		   $db->PConnect('localhost',  // Host to connect to
       		      	'cosctea4_cosc',     // Database user name
         		    'CoscTea4;',             // Password
         		    'cosctea4_cosc4345');   // Database    
-    	$sql = "";  
-        $sql ="INSERT INTO  'testResult' (testResult) values ('.$Result') WHERE sutId = '".$SUTId ."' ";
+        		    
+        		     
+         $sql = ""; 	
+         $sql ="UPDATE testResult SET testResult = '".$newResult."' where sutId= 2 ";
+         $rs = $db->Execute($sql);
+        
+        $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where sutId=2";
         $rs = $db->Execute($sql);
         
-        if($rs == false) {
+        $sql = "UPDATE testResult SET testId = (select testId from Test where testScriptName LIKE '$newScript' )";
+        $rs = $db->Execute($sql);
+        if($rs ) {
 	
-	
-		print_r($rs);
-		print "<br> SQL INSERTED failed \n";
+	    $smsg="update";
+		print_r($smsg);
+		print "<br> SQL UPDATED ---> \n";
+		echo "<br> result:----> " .$newScript;
+	}
+	elseif(!$rs){
+	     $fmsg =" <br> SQL UPDATED [[ Failed ]]  "; 
+            echo $fmsg;
+            echo "<br> result:----> " .$newScript;
+            
 	}
 	
-	
-	else{
-	    while(!$rs->EOF){
-	
-	$sutId = $rs->fields['sutId'];
-	print "sutId:" .$sutId;
-	print "logged result :" .$Result;
-	$rs->MoveNext();
-	        }
-
-	}
-}//enf function putResult()
+}//end function putResult()
 
     function updateResult($SUTID, $description){
         	 // Open a connection to the database
@@ -107,13 +121,12 @@ require "./DBConnection.php";
         		    'CoscTea4;',             // Password
         		    'cosctea4_cosc4345');   // Database    
     	$sql = "";  
-        $sql ="UPDATE testResult SET resultDescription = '".$description ."'   where sutId = '".$SUTId ."'";
+        $sql ="UPDATE testResult SET testResult = '".$description ."'   where sutId = '".$SUTId ."'";
         $rs = $db->Execute($sql);
         
         
         if($rs == false) {
-	
-	
+            
 		print_r($rs);
 		print "<br> SQL UPDATED failed \n";
 	}
