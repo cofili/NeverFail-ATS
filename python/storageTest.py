@@ -1,66 +1,55 @@
 #Tests major subsytem: Storage
-#Creates 2mb files filled with consecutive integers. Each file is created (overwritten each time), closed, re-opened and read. This is done 20 times in a loop.
+#Creates 3mb files filled with consecutive integers. Each file is created (overwritten each time), closed, re-opened and read. This is done 20 times in a loop.
 #Time of execution is analyzed to test storage performance. 
 #Tests for error handling, success, and failure scenarios.
+import os, errno, random, sys
+import time
+
 
 def main():
-    import os
-    import time
-
-    #SCENARIO 1: SUCCESS
+    max_time = 50
     start_time = time.time()
-    file_count = 0
-
-    for i in range(20):
-        file = open("file_test_storage.txt", "w")
-        for i in range (2000000):
-            file.write(str(i)) #should write to a list? or how?
-        file.close()
-        file = open("file_test_storage.txt", "r")
-        file.read() #Should it print?
-        file_count += 1
-        print("Read file # ", file_count)      
-    time_delta = time.time() - start_time  
-            
-    if time_delta <= 50:             
-        print("SUCCESS: Storage performance is good. Total time of operation was " + repr(time_delta) + " seconds")
-    else:
-        print("ERROR: Storage performance is poor. Total time of operation was " + repr(time_delta) + "seconds")
-
-
-
-
-    #SCENARIO 2: ERROR - Time is exceeded
-    start_time = time.time()
-    file_count = 0
-
-    for i in range(20):
-        file = open("file_test_storage.txt", "w")
-        for i in range (2000000):
-            file.write(str(i)) #should write to a list? or how?
-        file.close()
-        file = open("file_test_storage.txt", "r")
-        file.read() #Should it print?
-        file_count += 1
-        print("Read file # ", file_count)
-        time.sleep(2)   
-    time_delta = time.time() - start_time  
-            
-    if time_delta <= 50:             
-        print("SUCCESS: Storage performance is good. Total time of operation was " + repr(time_delta) + " seconds")
-    else:
-        print("ERROR: Storage performance is poor Total time of operation was " + repr(time_delta) + "seconds")
-
-
-
-    #SCENARIO 3: FORCE ERROR HANDLING - Access file not created
-    #Assume the machine does not contain the file indicated below
+    run()
+    #time.sleep(50) #Adds time to execution to force error
+    time_delta = time.time() - start_time
+    
+    
+    #Raise error if time duration does not meet test requirement; otherwise returns SUCCESS
+    try:  
+        if time_delta > max_time:   
+            raise ValueError("ERROR")
+    except ValueError as ve:
+        print(ve)
+        print("ValueError: Storage performance is poor")
+        
+    else:    
+        print("SUCCESS")
+        #print("Time of execution: " + repr(round(time_delta,2)) + " seconds")
+                
+  
+  
+def run():
     try:
-        file = open("some_file_H3FK4NU2NDK4K2JFL.txt", "r")
+        for i in range(20):
+            file = open("file_test_storage.txt", "w")
+            for i in range (1000):
+                file.write(str(i)) #should write to a list? or how?
+            file.close()
+            file = open("file_test_storage.txt", "r")
+            file.read() 
+            #file_count += 1
+            #print("Read file # ", file_count)      
+                
+    
+        #open an non-existing file for error handling
+        #os.remove("some_file_YJG35J79NEK1Y82.txt")  #check if file exists and deletes it
+        #some_file = open("some_file_YJG35J79NEK1Y82.txt", "r") 
+        
     except IOError:
-        print("ERROR: File does not exist.")
-    else:
-        print("Error handling did not work.")
+        print("ERROR")
+        print("IOError - file not found")
+        sys.exit(0)
+    
         
         
 main()
