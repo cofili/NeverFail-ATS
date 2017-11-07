@@ -1,4 +1,8 @@
 # Networking Test TBD
+#ISSUE: READING THROUGHOUT.
+#WORKS FOR OTHERS?
+
+
 def main():
     import os
     import urllib.request
@@ -11,7 +15,7 @@ def main():
             html = response.read().decode("utf-8")
             for line in html:
                 print(line)
-            #need code to read specific textto finish testing!!
+            #need code to read specific text to finish testing!!
             print("SUCCESS")
     except urllib.error.URLError:
         print("ERROR. There is no network connection")
