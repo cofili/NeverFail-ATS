@@ -16,6 +16,8 @@ def main():
     #time.sleep(max_time)   #Adds time to execution to force error
     time_delta = time.time() - start_time
     
+    
+    #check if execution time meets requirement
     try:
         if time_delta > max_time:   
             raise ValueError("ERROR")
@@ -27,12 +29,12 @@ def main():
 
     else:    
         print("SUCCESS")
-    
+        print("No errors were encountered during test execution")                
+  
     
     
     
 def run():
-    
     try:
         #Takes a screenshot of the partial display and saves as a PNG file
         ImageGrab.grab().save("screen_capture.png", "PNG")

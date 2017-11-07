@@ -26,20 +26,26 @@ def main():
 
     else:    
         print("SUCCESS")
-        #print(Time of execution: " + repr(round(time_delta,2)) + " seconds")
+        print("No errors where encountered during test execution")
                 
   
 
 def run():
     #list_count = 0
+    list_num = 5
+    num_elements = 1000000
+    
+    #Create a certain amount of 1MB lists defined by list_num
+    #with a certain amount of elements defined by num_elements
     try:
-        for i in range(5):
-            myList = list(range(1000000))   
+        for i in range(list_num):
+            myList = list(range(num_elements))   
             #list_count += 1
             #print("List", list_count, "created")
             
-        index = (len(myList))
-        #myList[index+1] #Force IndexError to be raised
+        #Force error handling by uncommenting below two lines
+        #index = (len(myList))
+        #myList[index+1] 
             
     except MemoryError:
         print("ERROR") 
