@@ -11,16 +11,23 @@ require "./DBConnection.php";
     $result = $_GET["result"]; 
     $newResult = $result;
     
+    $resultDesc = $_GET["resultDesc"];
+    $newResultDesc=$resultDesc;
+    
     $sutId = $_GET["sutId"];
     $newSutId = $sutId; 
+    
+    $testId=$_GET["testId"];
+    $newTestId = $testId;
     
     $scriptName = $_GET["scriptName"];
     $newScript=$scriptName;
     
+    
     if ($action == "putResult") {
         
        
-       putResult ($newResult, $newScript);
+       putResult ($result, $newScript, $resultDesc, $sutId);
       
     }
     elseif($action == "getTest"){
@@ -73,12 +80,9 @@ require "./DBConnection.php";
     
     
     
-     function putResult($newResult, $newScript){
+     function putResult($result, $newScript, $resultDesc, $sutId){
     	 // Open a connection to the database
-     	 		  //
-     	 		  $result = $_GET['result'];
-                     $newResult = $result;
-                     print(" %result : <br>" .$result);
+     	 		  
                      
      	      $db = ADONewConnection('mysql'); // Create a connection handle to the local database
      		   $db->PConnect('localhost',  // Host to connect to
@@ -86,52 +90,51 @@ require "./DBConnection.php";
         		    'CoscTea4;',             // Password
         		    'cosctea4_cosc4345');   // Database    
         		    
+        		    
+                    $result = $_GET["result"];
+                     $newResult = $result;
+                     $resultDesc = $_GET["resultDesc"];
+                    $newResultDesc = $resultDesc;
+                    $testId=$_GET["testId"];
+                      $newTestId = $testId;
+                      $sutId = $_GET["sutId"];
+                    $newSutId = $sutId; 
+        		    
         		     
-         $sql = ""; 	
-         $sql ="UPDATE testResult SET testResult = '".$newResult."' where sutId= 2 ";
+         $sql = ""; 
+         
+         $sql ="UPDATE testResult SET testResult = '".$newResult."', testResultDescription = '".$newResultDesc."' where sutId = 2 ";
          $rs = $db->Execute($sql);
-        
-        $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where sutId=2";
+           
+        $sql ="UPDATE testResult SET testResultDescription = '".$newResultDesc."' where sutId = 2";
+         $rs = $db->Execute($sql);
+         
+
+        $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where testStartDateTime = NOW()";
         $rs = $db->Execute($sql);
         
-        $sql = "UPDATE testResult SET testId = (select testId from Test where testScriptName LIKE '$newScript' )";
+
+        
+       $sql = "UPDATE testResult SET testId = (select testId from Test where testScriptName LIKE '$newScript' ) where testStartDateTime = NOW()";
         $rs = $db->Execute($sql);
+        
         if($rs ) {
-	
-	    $smsg="update";
-		print_r($smsg);
+	    
 		print "<br> SQL UPDATED ---> \n";
-		echo "<br> result:----> " .$newScript;
+	    print("%result : <br>" .$result);
+        print("<br>%result description--<br>".$resultDesc);
+        
 	}
 	elseif(!$rs){
 	     $fmsg =" <br> SQL UPDATED [[ Failed ]]  "; 
             echo $fmsg;
-            echo "<br> result:----> " .$newScript;
+            
             
 	}
 	
 }//end function putResult()
 
-    function updateResult($SUTID, $description){
-        	 // Open a connection to the database
-     	 		  //
-     		   $db = ADONewConnection('mysql'); // Create a connection handle to the local database
-     		   $db->PConnect('localhost',  // Host to connect to
-      		      	'cosctea4_cosc',     // Database user name
-        		    'CoscTea4;',             // Password
-        		    'cosctea4_cosc4345');   // Database    
-    	$sql = "";  
-        $sql ="UPDATE testResult SET testResult = '".$description ."'   where sutId = '".$SUTId ."'";
-        $rs = $db->Execute($sql);
-        
-        
-        if($rs == false) {
-            
-		print_r($rs);
-		print "<br> SQL UPDATED failed \n";
-	}
-	
-    }
+  
     
     
     
