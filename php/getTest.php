@@ -2,7 +2,7 @@
 // getTest(sutId)
 // request a test script to run from the php command/control.
 include('../adodb5/adodb.inc.php');
-require "./DBConnection.php";
+//include('./DBConnection.php');
  //require "./AutomationTest.php";    
       if (isset($_GET["action"]) ) {
 
@@ -20,26 +20,29 @@ require "./DBConnection.php";
     $testId=$_GET["testId"];
     $newTestId = $testId;
     
-    $scriptName = $_GET["scriptName"];
-    $newScript=$scriptName;
+    $startTime = $_GET["startTime"];
+    $newStartTime = $startTime;
+    
+    $testResultId = $_GET["testResultId"];
+    $newTestResultId =  $testResultId;
+    
+    $testId = $_GET["testId"];
     
     
-    if ($action == "putResult") {
+    if ( $action == "putResult") {
         
-       
-       putResult ($result, $newScript, $resultDesc, $sutId);
+      
+       putResult ($result, $newScript, $resultDesc, $testResultId);
       
     }
-    elseif($action == "getTest"){
-        getTest($testStart, $newTestId, $newSutId, $newScript);
+    if($action == "getTest"){
+         getTest($sutId, $testId);
         
     }
     
-    
-        
     }
 
-    function getTest($testStart, $newTestId, $newSutId, $newScript){
+    function getTest($sutId, $testId){
     	 // Open a connection to the database
      	 	
      	      $db = ADONewConnection('mysql'); // Create a connection handle to the local database
@@ -48,25 +51,32 @@ require "./DBConnection.php";
         		    'CoscTea4;',             // Password
         		    'cosctea4_cosc4345');   // Database       
         		   
-        		  
+        		    //$startTime = $_GET["startTime"];
+                    
+        		    $sutId = $_GET["sutId"];
+        		    $testId = $_GET["testId"];
+                     
         		   
         		   
-        		   
-        		$newTestId = 1;   
+        		 
         		    
-         $sql = "";
+         
  
-    	 $sql = "INSERT INTO testResult (testStartDateTime, testId, sutId)
-    	 VALUES ( NOW() +1, '$newTestId', '$newSutId') ";
-         $rs = $db->Execute($sql);
+    	 $sql = "INSERT INTO `testResult` (sutId, testId, testStartDateTime)  VALUES ($sutId,$testId, NOW()) ";
+          $rs = $db->Execute($sql);
         
         
         if($rs) {
 		print "<br> ----Inserted successfuly --- \n";
-		print "<br> <br> scriptName".$newScript;
+		
 	}
 	elseif($rs == false){
-	    print "<br> insert failed   <br> scriptName".$newScript;
+	    print "<br> insert failed   <br> ";
+	    
+	    echo "<br> ".$sutId;
+	    
+	    echo "<br> ".$sql;
+      
 	}
 	
 
@@ -80,7 +90,7 @@ require "./DBConnection.php";
     
     
     
-     function putResult($result, $newScript, $resultDesc, $sutId){
+     function putResult($result, $newScript, $resultDesc, $testResultId){
     	 // Open a connection to the database
      	 		  
                      
@@ -99,24 +109,22 @@ require "./DBConnection.php";
                       $newTestId = $testId;
                       $sutId = $_GET["sutId"];
                     $newSutId = $sutId; 
+                    $testResultId = $_GET["testResultId"];
+                    $newTestResultId =  $testResultId;
         		    
         		     
-         $sql = ""; 
          
-         $sql ="UPDATE testResult SET testResult = '".$newResult."', testResultDescription = '".$newResultDesc."' where sutId = 2 ";
-         $rs = $db->Execute($sql);
-           
-        $sql ="UPDATE testResult SET testResultDescription = '".$newResultDesc."' where sutId = 2";
+         
+         $sql ="UPDATE testResult SET testResult = '".$newResult."', testResultDescription = '".$newResultDesc."' where testResultId = '".$newTestResultId."' ";
          $rs = $db->Execute($sql);
          
+         /*Update testResult set testResult = $newResult , testStartTime = $startTime, where testResultId = (select max(testResultId) from testResult);*/
 
-        $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where testStartDateTime = NOW()";
-        $rs = $db->Execute($sql);
-        
+         
 
-        
-       $sql = "UPDATE testResult SET testId = (select testId from Test where testScriptName LIKE '$newScript' ) where testStartDateTime = NOW()";
+        $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where testResultId = '".$newTestResultId."'";
         $rs = $db->Execute($sql);
+
         
         if($rs ) {
 	    

@@ -37,9 +37,10 @@ $result = mysqli_query($connect, $query);
                     <th>Result Description</th>
                     <th>Test Start Time</th>
                     <th>Test End Time</th>
+                    <th>Duration</th>
                     <th>SUT OS</th>
                     <th>SUT Description</th>
-                     <th>Duration</th>
+                     
                   </tr>
                 </thead>
                 <tbody>
@@ -54,9 +55,10 @@ $result = mysqli_query($connect, $query);
                     <td>'.$row["testResultDescription"]. '</td>
                         <td>'.$row["testStartDateTime"]. '</td>
                         <td>'.$row["testFinishDateTime"]. '</td>
+                        <td>'.$row["diff"]. '</td>
                         <td>'.$row["sutOS"]. '</td>
                         <td>'.$row["sutDescription"]. '</td>
-                        <td>'.$row["diff"]. '</td>
+                        
                     </tr>
                     ';
                  }// end of while 
