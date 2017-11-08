@@ -5,7 +5,7 @@
 
 $connect = mysqli_connect("localhost", "cosctea4_cosc", "CoscTea4;", "cosctea4_cosc4345");
 
-$query = "SELECT testScriptName, testResult,testStartDateTime, testFinishDateTime,sutOS, sutDescription, TIMEDIFF(testFinishDateTime, testStartDateTime) diff FROM Test, testResult, SUT WHERE testResult.testId = Test.testId AND testResult.sutId = SUT.sutId";
+$query = "SELECT testScriptName, testResult, testResultDescription, testStartDateTime, testFinishDateTime,sutOS, sutDescription, TIMEDIFF(testFinishDateTime, testStartDateTime) diff FROM Test, testResult, SUT WHERE testResult.testId = Test.testId AND testResult.sutId = SUT.sutId";
 
 $result = mysqli_query($connect, $query);
 
@@ -34,6 +34,7 @@ $result = mysqli_query($connect, $query);
                   <tr>
                     <th>Test Name</th>
                     <th>Test Result</th>
+                    <th>Result Description</th>
                     <th>Test Start Time</th>
                     <th>Test End Time</th>
                     <th>SUT OS</th>
@@ -50,6 +51,7 @@ $result = mysqli_query($connect, $query);
                     <tr>
                         <td>'.$row["testScriptName"]. '</td>
                         <td>'.$row["testResult"]. '</td>
+                    <td>'.$row["testResultDescription"]. '</td>
                         <td>'.$row["testStartDateTime"]. '</td>
                         <td>'.$row["testFinishDateTime"]. '</td>
                         <td>'.$row["sutOS"]. '</td>
