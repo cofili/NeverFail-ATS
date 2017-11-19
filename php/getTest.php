@@ -62,7 +62,7 @@ include('../adodb5/adodb.inc.php');
         		    
          
  
-    	 $sql = "INSERT INTO `testResult` (sutId, testId, testStartDateTime)  VALUES ($sutId,$testId, NOW()) ";
+    	 $sql = "INSERT INTO `testResult` (sutId, testId, testStartDateTime, testStatus)  VALUES ($sutId,$testId, NOW(), 'IN PROGRESS') ";
           $rs = $db->Execute($sql);
         
         
@@ -115,7 +115,7 @@ include('../adodb5/adodb.inc.php');
         		     
          
          
-         $sql ="UPDATE testResult SET testResult = '".$newResult."', testResultDescription = '".$newResultDesc."' where testResultId = '".$newTestResultId."' ";
+         $sql ="UPDATE testResult SET testResult = '".$newResult."', testStatus = 'COMPLETED', testResultDescription = '".$newResultDesc."' where testResultId = '".$newTestResultId."' ";
          $rs = $db->Execute($sql);
          
 
