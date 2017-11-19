@@ -197,8 +197,8 @@ public class COSC4345Example_Alibrahim {
 				            String testResult = outputList.get(0);
 				            String resultDescription = outputList.get(1);
 				            
-				            
                 
+				            
                 
                 System.out.println("test result:--> "+testResult);
                 System.out.println("================");
@@ -206,6 +206,23 @@ public class COSC4345Example_Alibrahim {
                 System.out.println("================");
                 System.out.println("testResultId # ("+result2 +")");
                 System.out.println("================");
+                String fileName = "errorLog";
+                if(testResult.contains("ERROR")){
+                    System.err.printf("Logging errors  '%s'  into the file -"+fileName +" %n" , testResult);
+                    
+                    
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+                    writer.append(' ');
+                    writer.append(testResult +" REASON " +resultDescription +" --testResuluId = "+result2 );
+                    writer.newLine();
+                    
+                    writer.close();
+                    
+                }else{
+                    System.err.printf("NO errors being logged into a file '-----' %n" , testResult);
+                }
+                
+                
                 
                 
                 String testResultId = result2;
@@ -224,7 +241,8 @@ public class COSC4345Example_Alibrahim {
                 //System.out.println("Get response code[testresult] " +responseCode11);
                 
                 
-            }			
+            }		
+            
             
             reader2.close();
             //----------------------------------------------------------------------------------	
@@ -232,7 +250,13 @@ public class COSC4345Example_Alibrahim {
             
             
             
+            
+            
         }
+        
+        
+        
+        
         catch(MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -243,7 +267,7 @@ public class COSC4345Example_Alibrahim {
         
         
         
-    }
+}
     
 }
 
