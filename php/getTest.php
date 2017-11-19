@@ -118,12 +118,34 @@ include('../adodb5/adodb.inc.php');
          $sql ="UPDATE testResult SET testResult = '".$newResult."', testResultDescription = '".$newResultDesc."' where testResultId = '".$newTestResultId."' ";
          $rs = $db->Execute($sql);
          
-         /*Update testResult set testResult = $newResult , testStartTime = $startTime, where testResultId = (select max(testResultId) from testResult);*/
-
-         
 
         $sql = "UPDATE testResult SET testFinishDateTime = NOW()+1 where testResultId = '".$newTestResultId."'";
         $rs = $db->Execute($sql);
+        
+        
+        
+        //$sql = "select testResult from testResult where testResultId = '".$newTestResultId."' ";
+        //$rs = $db->Execute($sql);
+           
+        if ($newResult == "ERROR" ) {
+               
+                //Send email if test fails 
+                $to = "palosamaniego@gmail.com";
+                $subject = "TEST FAILED";
+                $txt = "NeverFail Automated System encountered an issue while running a test
+                
+                \nTest Result ID: "  .$newTestResultId.
+                "\nTest Result: "  .$newResult.
+                "\nTest Description: " .$newResultDesc. 
+                "";
+                $headers = "From: Administrator@neverfail.com" . "\r\n" .
+                "CC: psamani@sedwards.edu";
+    
+                mail($to,$subject,$txt,$headers);
+        }
+
+        
+        
 
         
         if($rs ) {
