@@ -1,42 +1,33 @@
 <?php
 
-// getNextTest.php
-// Retrieves test information from the database
-//
-
+//getNextTest.php
+//Retrieves test information from the database
 require "./AutomationTest.php";
 
 // Process all key/value pairs that come with the $GET
-// and take the appropriate action to select mobile phones
-//
 if (isset($_GET["action"])) {
 
     $action = $_GET["action"];
-
     $test = new AutomationTest();     // Setup a test object
     $result = $test->getNextTest();	  // Retrive the test from the database
     $myJson = "Unknown Error";        // Setup json for the return info
 
+
     // Encode all of the test information
-    //
     if ($action == "getTest") {
+        $myJson = json_encode($test->getTest()); }
 
-        $myJson = json_encode($test->getTest());
-    }
-
-	// Encode just the test name, which is a description of the test
-	//
-	else if ($action == "getTestName") {
-		$myJson = json_encode($test->getTestName());
-	}
-
-	// Encode the script name, which is the Python filename to execute on the client
-	//
 	else if ($action == "getScriptName") {
-		$myJson = json_encode($test->getScriptName());
-	}
+		$myJson = json_encode($test->getScriptName()); }
+	
+	elseif($action == "getTestId") {
+	    $myJson = json_encode($test->getTestId()); }
+	
+	elseif($action == "getTestResultId"){
+	    $myJson = json_encode($test->getTestResultId()); }
 
-	// Return the json
+
+	//Troubleshooting: return the json
 	print "$myJson";
 }
 
