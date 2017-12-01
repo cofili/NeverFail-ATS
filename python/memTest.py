@@ -12,14 +12,6 @@ def main():
     run()
     #time.sleep(10) #Adds time to execution to force error
     time_delta = time.time() - start_time
-<<<<<<< HEAD
-    if time_delta <= 10:             
-        print("SUCCESS: Memory is fast. Total time of operation was " + repr(time_delta) + " seconds")
-    else:
-        print("ERROR: Memory is slow. Total time of operation was " + repr(time_delta) + "seconds")
-    
-
-=======
     
     
     #Raise error if time duration does not meet test requirement; otherwise returns SUCCESS
@@ -29,12 +21,12 @@ def main():
         
     except ValueError as ve:
         print(ve)
-        print("ValueError: memory is too slow")
+        print("ValueError....Memory_is_too_slow")
         sys.exit(0)
 
     else:    
         print("SUCCESS")
-        print("No errors where encountered during test execution")
+        print("")
                 
   
 
@@ -57,25 +49,24 @@ def run():
             
     except MemoryError:
         print("ERROR") 
-        print("MemoryError: the operation ran out of memory")
+        print("MemoryError....The_operation_ran_out_of_memory")
         sys.exit(0)
     
     except IndexError:
         print("ERROR")
-        print("IndexError: list index is out of range" )
+        print("IndexError....List_index_is_out_of_range" )
         sys.exit(0)
->>>>>>> 492abec026e3149d2c7965fee04e278c8dd9d0b7
         
     #raises standard error
     except Exception:
         print("ERROR")
-        print("Exception handling caught an error")
+        print("Exception_handling_caught_an_error")
         sys.exit(0)
     
     #raises an error not covered in error handling to avoid test to crash
     except:
         print("ERROR")
-        print("Unexpected error occurred while running the test")
+        print("Unexpected_error_occurred_while_running_the_test")
         sys.exit(0)
 
 

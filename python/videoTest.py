@@ -24,12 +24,12 @@ def main():
     
     except ValueError as ve:
         print(ve)
-        print("ValueError: task execution time is below expected result")
+        print("ValueError....Task_execution_time_is_below_expected_result")
         sys.exit(0)
 
     else:    
         print("SUCCESS")
-        print("No errors were encountered during test execution")                
+        print("")                
   
     
     
@@ -46,24 +46,24 @@ def run():
     
     except ValueError as ve:
         print(ve)
-        print("ValueError: Screenshot was not created")
+        print("ValueError....Screenshot_was_not_created")
         sys.exit(0)
         
     except IOError:
         print("ERROR")
-        print("IOERROR: Screenshot file not found")
+        print("IOERROR....Screenshot_file_not_found")
         sys.exit(0)
         
     #raise standard error
     except Exception:
         print("ERROR")
-        print("Exception handling caught an error")
+        print("Exception_handling_caught_an_error")
         sys.exit(0)
     
     #raises an error not covered in error handling to avoid test to crash
     except:
         print("ERROR")
-        print("Unexpected error occurred while running the test")
+        print("Unexpected_error_occurred_while_running_the_test")
         sys.exit(0)
 
         

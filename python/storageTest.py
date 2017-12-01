@@ -21,12 +21,12 @@ def main():
             raise ValueError("ERROR")
     except ValueError as ve:
         print(ve)
-        print("Storage performance is poor. Total time of operation was " + repr(round(time_delta,2)) + "seconds")
+        print("ValueError....Storage_performance_is_too_slow")
         sys.exit(0)
         
     else:    
         print("SUCCESS")
-        print("No errors were encountered during test execution")                
+        print("")                
   
   
 def run():
@@ -39,7 +39,7 @@ def run():
         fw = open("storage_test.txt", "w")
     except IOError:
         print("ERROR")
-        print("IOError - file not found")
+        print("IOError....File_not_found")
         sys.exit(0)
     
     #write to file
@@ -56,12 +56,12 @@ def run():
         #fr = open("some_file_GDKDH3FJ2948MNF3J.txt", "r")    #code to force error handling: file not found
     except OSError:
         print("ERROR")
-        print("IOError - file not found")
+        print("IOError....File_not_found")
         sys.exit(0)
         
     #read from file
     fileContent = fr.readlines()
-    print(fileContent)
+    #print(fileContent)
     
     
     #close file
@@ -76,12 +76,12 @@ def run():
         
     except ValueError as ve:
         print(ve)
-        print("ValueError: need to test a file with bigger size")
+        print("ValueError....Need_to_test_a_file_with_bigger_size")
         sys.exit(0)
         
     except (IOError):
         print("ERROR")
-        print("IOError: file not found")
+        print("IOError....File_not_found")
         sys.exit(0)
     
         
