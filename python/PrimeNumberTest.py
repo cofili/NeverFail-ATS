@@ -1,6 +1,3 @@
-#TBD
-#Prime Number test: Measures how fast the CPU can search for prime numbers. 
- 
 	#TBD
 	#Prime Number test: Measures how fast the CPU can search for prime numbers. 
 	 
@@ -24,9 +21,10 @@ n = 100 #int(raw_input("What number should I go up to? "))
 
 p = 2
 while p <= n:
-    if is_prime(p):
-        print p,
-    p=p+1
+	is_prime(p)
+#     if is_prime(p):
+#         print p,
+	p=p+1
 
 print "Done"
 
@@ -52,4 +50,3 @@ else:
 	        #print(Time of execution: " + repr(round(time_delta,2)) + " seconds")
 	               
 print (time_delta)      
-
