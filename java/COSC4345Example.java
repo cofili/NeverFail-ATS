@@ -4,25 +4,29 @@
 // a Python script name, execute the script and print the return results
 
 package cosc4345ExamplePackage;
-
+import java.util.Date;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.net.MalformedURLException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.awt.List;
 import java.io.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+
 
 
 public class COSC4345Example_Alibrahim {
@@ -59,7 +63,7 @@ public class COSC4345Example_Alibrahim {
             // Read the return results and create a string with the python command to execute
             //
             
-            
+            int responceCodeTestId=0;
             while ((result3 = reader3.readLine()) != null) {
                 result3 = result3.replace("\"",  "");
                 
@@ -84,12 +88,13 @@ public class COSC4345Example_Alibrahim {
                 con1.setRequestProperty("sutId", sutId);
                 con1.setRequestProperty("testId", testId);
                 int responseCode1 = con1.getResponseCode();
-                //System.out.println("Get response code[sutId + testId] " +responseCode1);
+                System.out.println("Get response code[sutId + testId] " +responseCode1);
+                responceCodeTestId = responseCode1;
+                
                 
             }
             
             reader3.close();
-            
             
             
             
@@ -186,19 +191,19 @@ public class COSC4345Example_Alibrahim {
                 
                 
                 //Create an string array to capture python output
-				            ArrayList<String> outputList = new ArrayList<String>();
-				            while ((s = stdInput.readLine()) != null) {
-                                outputList.add(s);
-                                
-                                //System.out.println(s);
-                                
-                            }
-				            //put python output into variables
-				            String testResult = outputList.get(0);
-				            String resultDescription = outputList.get(1);
-				            
+                ArrayList<String> outputList = new ArrayList<String>();
+                while ((s = stdInput.readLine()) != null) {
+                    outputList.add(s);
+                    
+                    //System.out.println(s);
+                    
+                }
+                //put python output into variables
+                String testResult = outputList.get(0);
+                String resultDescription = outputList.get(1);
                 
-				            
+                
+                
                 
                 System.out.println("test result:--> "+testResult);
                 System.out.println("================");
@@ -210,10 +215,22 @@ public class COSC4345Example_Alibrahim {
                 if(testResult.contains("ERROR")){
                     System.err.printf("Logging errors  '%s'  into the file -"+fileName +" %n" , testResult);
                     
+                    DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                    Date dateobj = new Date();
                     
                     BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
                     writer.append(' ');
-                    writer.append(testResult +" REASON " +resultDescription +" --testResuluId = "+result2 );
+                    
+                    writer.append("---------------------------------------------------------------------------------------" +"\n"
+                                  +"Date: ["+df.format(dateobj) +"]  --" +testResult +"  -REASON --" +resultDescription +"-- testResuluId = "+result2 );
+                    
+                    if(responceCodeTestId == 200){
+                        writer.append("\n" +"Connection to Command & Control is SUCCESSFUL--- response code is "+responceCodeTestId 
+                                      +"\n"+"---------------------------------------------------------------------------------------"  );
+                    }else{
+                        writer.append("\n" +"Connection to Command & Control is UNSUCCESSFUL--- response code is "+responceCodeTestId 
+                                      +"\n"+"---------------------------------------------------------------------------------------"  );
+                    }
                     writer.newLine();
                     
                     writer.close();
@@ -222,13 +239,9 @@ public class COSC4345Example_Alibrahim {
                     System.err.printf("NO errors being logged into a file '-----' %n" , testResult);
                 }
                 
-                
-                
-                
                 String testResultId = result2;
                 
                 //--------------------------------------------
-                
                 URL obj = new URL("http://cosc4345-team5.com/features/getTest.php?action=putResult&result=" +testResult +
                                   "&resultDesc=" +resultDescription +"&testResultId=" +testResultId);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -238,21 +251,12 @@ public class COSC4345Example_Alibrahim {
                 con.setRequestProperty("resultDesc", resultDescription);
                 con.setRequestProperty("testResultId", testResultId);
                 int responseCode11 = con.getResponseCode();
-                //System.out.println("Get response code[testresult] " +responseCode11);
-                
-                
-            }		
-            
-            
+                System.out.println("Get response code[testresult] " +responseCode11);
+            }	//end while ((result2 = reader2.readLine()) != null) 	
             reader2.close();
             //----------------------------------------------------------------------------------	
             //----------------------------------------------------------------------------------
-            
-            
-            
-            
-            
-        }
+        }//end try
         
         
         
@@ -267,7 +271,7 @@ public class COSC4345Example_Alibrahim {
         
         
         
-}
+    }
     
 }
 
