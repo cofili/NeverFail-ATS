@@ -3,7 +3,6 @@ import time
 import json
 from random import randint
 
-
 # specify global for amount of time we want the test to take
 maxSeconds = 3
 
@@ -27,7 +26,6 @@ def main():
             # package up the failure and return it
             success = False
             run_message = "ERROR:Storage_test_exceeds_time_boundary"
-            #result = toJsonObject(run_message)
 
             print(run_message)
 
@@ -47,7 +45,7 @@ def main():
     if (success == True):
         run_message = "SUCCESS"
     else:
-        run_message = "There was an error in IntegerMathTest.py"
+        run_message = "error_in_IntegerMathTest.py"
     # package up the success or fail and return it
     log(run_message)
     print(run_message)
@@ -80,25 +78,35 @@ def addition() :
     # Would be more effectively done using an object but this works for now
     for i in range(0, 9):
         if (i == 0):
-            expSum = 0
+            i = 0.0
+            expSum = 0.0
         if (i == 1):
-            expSum = 2
+            i = 1.0
+            expSum = 2.0
         if (i == 2):
-            expSum = 4
+            i = 2.0
+            expSum = 4.0
         if (i == 3):
-            expSum = 6
+            i = 3.0
+            expSum = 6.0
         if (i == 4):
-            expSum = 8
+            i = 4.0
+            expSum = 8.0
         if (i == 5):
-            expSum = 10
+            i = 5.0
+            expSum = 10.0
         if (i == 6):
-            expSum = 12
+            i = 6.0
+            expSum = 12.0
         if (i == 7):
-            expSum = 14
+            i = 7.0
+            expSum = 14.0
         if (i == 8):
-            expSum = 16
+            i = 8.0
+            expSum = 16.0
         if (i == 9):
-            expSum = 18
+            i = 9.0
+            expSum = 18.0
 
         for k in range(1000000):
             actSum = i+i
@@ -110,7 +118,36 @@ def subtraction() :
     # Would be more effectively done using an object but this works for now
     for i in range(0, 9):
         # Anything minus itself equals zero 
-        expDiff = 0
+        if (i == 0):
+            i = 0.0
+            expDiff = 0.0
+        if (i == 1):
+            i = 1.0
+            expDiff = 0.0
+        if (i == 2):
+            i = 2.0
+            expDiff = 0.0
+        if (i == 3):
+            i = 3.0
+            expDiff = 0.0
+        if (i == 4):
+            i = 4.0
+            expDiff = 0.0
+        if (i == 5):
+            i = 5.0
+            expDiff = 0.0
+        if (i == 6):
+            i = 6.0
+            expDiff = 0.0
+        if (i == 7):
+            i = 7.0
+            expDiff = 0.0
+        if (i == 8):
+            i = 8.0
+            expDiff = 0.0
+        if (i == 9):
+            i = 9.0
+            expDiff = 0.0
 
         for k in range(1000000):
             actDiff = i-i
@@ -122,26 +159,35 @@ def multiplication() :
     # Would be more effectively done using an object but this works for now
     for i in range(0, 9):
         if (i == 0):
-            expProd = 0
+            i = 0.0
+            expProd = 0.0
         if (i == 1):
-            expProd = 1
+            i = 1.0
+            expProd = 1.0
         if (i == 2):
-            expProd = 4
+            i = 2.0
+            expProd = 4.0
         if (i == 3):
-            expProd = 9
+            i = 3.0
+            expProd = 9.0
         if (i == 4):
-            expProd = 16
+            i = 4.0
+            expProd = 16.0
         if (i == 5):
-            expProd = 25
+            i = 5.0
+            expProd = 25.0
         if (i == 6):
-            expProd = 36
+            i = 6.0
+            expProd = 36.0
         if (i == 7):
-            expProd = 49
+            i = 7.0
+            expProd = 49.0
         if (i == 8):
-            expProd = 64
+            i = 8.0
+            expProd = 64.0
         if (i == 9):
-            expProd = 81
-
+            i = 9.0
+            expProd = 81.0
         for k in range(1000000):
             actProd = i*i
             if (actProd != expProd):
@@ -152,23 +198,50 @@ def division():
     # Would be more effectively done using an object but this works for now
     for i in range(0, 9):
         # Anything divided by itself equals 1
-        expQuot = 1
-
+        if (i == 0):
+            i = 0.0
+            expQuot = 0.0
+        if (i == 1):
+            i = 1.0
+            expQuot = 0.0
+        if (i == 2):
+            i = 2.0
+            expQuot = 0.0
+        if (i == 3):
+            i = 3.0
+            expQuot = 0.0
+        if (i == 4):
+            i = 4.0
+            expQuot = 0.0
+        if (i == 5):
+            i = 5.0
+            expQuot = 0.0
+        if (i == 6):
+            i = 6.0
+            expQuot = 0.0
+        if (i == 7):
+            i = 7.0
+            expQuot = 0.0
+        if (i == 8):
+            i = 8.0
+            expQuot = 0.0
+        if (i == 9):
+            i = 9.0
+            expQuot = 0.0
         for k in range(1000000):
-            if (i != 0):
+            if (i != 0.0):
+                print("made it in")
                 actQuot = i/i
                 if (actQuot != expQuot):
                     return False
-            elif(i == 0):
+            elif(i == 0.0):
                 try:
                     actQuot = i/i
-                    # supposed to be "Error: division by zero
+                    # supposed to be "Error: float division by zero"
                     if (actQuot == expQuot):
                         return False
-                except Exception as e:
-                    if (e == "division by zero"):
-                        print("we did it")
-                        return True
+                except ZeroDivisionError as e:
+                    return True
                     
                     
     return True
@@ -181,7 +254,7 @@ def toJsonObject(run_message):
 
 def log(run_message):
     with open("error_log.log", "a") as myfile:
-        test_name = "IntegerMathTest"
+        test_name = "FloatingPointTest"
         log_message = "{} | {} | {} \n".format(datetime.utcnow(),test_name, run_message)
         myfile.write(log_message)
         
