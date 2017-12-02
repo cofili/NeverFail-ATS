@@ -1,6 +1,5 @@
-# Networking Test TBD
-#ISSUE: READING THROUGHOUT.
-#WORKS FOR OTHERS?
+#Tests major subsytem: NETWORKING
+#Networking connection is tested by accessing a URL, reading the contents, and saving to a file
 
 
 def main():
@@ -10,8 +9,9 @@ def main():
 
     #dowloads the url file, saves as a new file, reads
     try:
-        link = 'http://jbryan2.create.stedwards.edu/'
-        with urllib.request.urlopen(link) as response:
+        #link = 'http://jbryan2.create.stedwards.edu/'
+        errorLink = 'http://jbryan2.create.stedwards.ed/'
+        with urllib.request.urlopen(errorLink) as response:
             html = response.read().decode("utf-8")
             f = open("networkingTest.txt", "w")
             for line in html:
@@ -28,12 +28,12 @@ def main():
     #Use error handling to avoid program to crash
     except ValueError as ve:
         print(ve)
-        print("ValueError....Screenshot_was_not_created")
+        print("ValueError....File_was_not_created")
         sys.exit(0)
         
     except IOError:
         print("ERROR")
-        print("IOERROR....File_not_found")
+        print("IOERROR....Issues_while_opening_and_writing_to_file")
         sys.exit(0)   
         
     except urllib.error.URLError:

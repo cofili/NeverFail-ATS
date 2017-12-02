@@ -1,9 +1,0 @@
-Test Cases for the Web UI
-
-- Check for Next, Previous, First and Last page pagination functionality.
-- Sorted columns should be displayed with a sorting icon.
-- The user should be able to filter results using all parameters on the page.
-- All fields on a page (e.g. text box, radio options, data column headings, etc) should be aligned properly.
-- Check if page is dynamic, is re-sizable.
-- Check if correct data is getting saved in the database upon successful page submit.
-- Check values for columns which are not accepting null values.
