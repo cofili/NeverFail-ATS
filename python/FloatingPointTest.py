@@ -35,7 +35,23 @@ def main():
         # package up failure and return it
         run_message = "ERROR: " + str(e)
         success = False
-        #result = toJsonObject(run_message)
+
+    except MemoryError:
+        print("ERROR") 
+        print("MemoryError....The_operation_ran_out_of_memory")
+        sys.exit(0)
+        
+
+    except Exception:
+        print("ERROR")
+        print("Exception_handling_caught_an_error")
+        sys.exit(0)
+    
+    #raises an error not covered in error handling to avoid test to crash
+    except:
+        print("ERROR")
+        print("Unexpected_error_occurred_while_running_the_test")
+        sys.exit(0)
 
         print(run_message)
 
@@ -230,7 +246,7 @@ def division():
             expQuot = 0.0
         for k in range(1000000):
             if (i != 0.0):
-                print("made it in")
+                print("made_it_in")
                 actQuot = i/i
                 if (actQuot != expQuot):
                     return False

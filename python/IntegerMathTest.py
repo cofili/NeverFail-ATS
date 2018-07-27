@@ -39,6 +39,17 @@ def main():
         success = False
         #result = toJsonObject(run_message)
 
+    except MemoryError:
+        print("ERROR") 
+        print("MemoryError....The_operation_ran_out_of_memory")
+        sys.exit(0)
+        
+        
+    except Exception:
+        print("ERROR")
+        print("Exception_handling_caught_an_error")
+        sys.exit(0)
+
         print(run_message)
 
         #return result
@@ -47,7 +58,7 @@ def main():
     if (success == True):
         run_message = "SUCCESS"
     else:
-        run_message = "There was an error in IntegerMathTest.py"
+        run_message = "error_in_IntegerMathTest.py"
     # package up the success or fail and return it
     log(run_message)
     print(run_message)
@@ -166,8 +177,8 @@ def division():
                     if (actQuot == expQuot):
                         return False
                 except Exception as e:
-                    if (e == "division by zero"):
-                        print("we did it")
+                    if (e == "division_by_zero"):
+                        print("we_did_it")
                         return True
                     
                     
